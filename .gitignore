@@ -1,3 +1,13 @@
+*.in
+*.json
+*.xml
+*.iml
+*.js
+*.css
+*.class
+
+.idea
+
 # Prerequisites
 *.d
 

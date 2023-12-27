@@ -14,7 +14,6 @@ void dfs(int curr, int depth) {
     int maxLeftDepth, maxRightDepth = 0;
 
     for (int n: adj[curr]) {
-        
         dfs(n, depth + 1);
     }
 

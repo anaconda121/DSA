@@ -5,7 +5,7 @@
 using namespace std;
 
 int N, K, medIdx, endIdx;
-vector<int> arr;
+vector<int> arr;    
 
 bool f(int m) {
     int operationCount = 0;

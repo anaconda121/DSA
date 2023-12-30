@@ -39,7 +39,6 @@ int numberComponents() {
 
     for (int i = 0; i < N; i++) {
         if (!visited[i] && !closedNodes.count(i)) {
-            // cout << "new component: " << i << "\n";
             ans++;
             dfs(i);
         }
@@ -66,15 +65,12 @@ int main() {
         int c;
         cin >> c;
         c--;
+
         for (int n: adj[c]) {
             closedPaths.insert({c, n});
             closedPaths.insert({n, c});
         }
         closedNodes.insert(c);
-
-        // for (pair<int, int> p: closedPaths) {
-        //     cout << p.first << " " << p.second << "\n";
-        // }
 
         if (numberComponents() == 1) cout << "YES" << "\n";
         else cout << "NO" << "\n";

@@ -34,6 +34,6 @@ int main() {
 
     dfs(1, 0);
 
-    cout << setprecision(8) << totalLen / deadEnds << "\n";
+    cout << setprecision(4) << totalLen / deadEnds << "\n";
     return 0;
 }

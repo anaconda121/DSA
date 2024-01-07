@@ -16,7 +16,7 @@ void setIO(string name, bool includeout=false) {
         freopen((name+".out").c_str(), "w", stdout);
     }
 }
- 
+
 void output(ll l, ll r) {
     ll lPos, rPos = 0;
     lPos = (find(prevArr.begin(), prevArr.end(), l) - prevArr.begin()) + 1;

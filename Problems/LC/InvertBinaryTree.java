@@ -13,7 +13,7 @@
  *     }
  * }
  */
-class Solution {
+class InvertBinaryTree {
 
     // three cases
     // has 2 children

@@ -1,4 +1,4 @@
-class Solution:
+class GroupAnagrams:
     def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
         ans = []
         covered = [False] * len(strs)

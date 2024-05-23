@@ -13,7 +13,7 @@
  *     }
  * }
  */
-class Solution {
+class BalancedBinaryTree {
 
     boolean ans = true;
 

@@ -4,7 +4,7 @@
 #         self.val = val
 #         self.left = left
 #         self.right = right
-class Solution:
+class DeleteLeavesWithGivenValue:
 
     def dfs(self, root, target):
         global del_count

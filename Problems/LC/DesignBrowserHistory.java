@@ -2,7 +2,7 @@ class DesignBrowserHistory {
     LinkedList<String> l;
     int ptr;
 
-    public BrowserHistory(String homepage) {
+    public DesignBrowserHistory(String homepage) {
         l = new LinkedList<>();
         l.add(homepage);
         ptr = 0;

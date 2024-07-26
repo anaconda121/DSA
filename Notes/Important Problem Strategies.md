@@ -62,3 +62,21 @@ Problem: https://leetcode.com/problems/search-suggestions-system/
 - First sort the array and note that if 2 words fulfill the conditions, then all the words between them also will fulfill the conditions
 - This leads to a two pointer solution, where `l` and `r` are the largest bounds that represent all words that are still eligible
 	- for each iteration, return first 3 words or all eligible words
+
+Problem: https://leetcode.com/problems/find-median-from-data-stream/
+- Maintain two priority queues - a maxheap that keeps track of all numbers that wld be in the first half of a sorted array, and a minheap that keeps track of the numbers in the second half
+- Have to ensure that all elements in minheap are greater than all elements in maxheap (can be done in O(1)) and that two heaps are as balanced as possible so that median computation can be O(1); sizes can differ by at most 1
+- Can add every element into small heap initially, and then check above conditions - if they are not true, remove the element just added and put it into the large heap - for balancing, you also want to check that the `minheap > maxheap + 2`
+
+Problem: https://leetcode.com/problems/pseudo-palindromic-paths-in-a-binary-tree/
+- Traditional DFS to get all paths from root to leaf
+- If path is odd length, there can only be one digit with an odd count for the path to be valid
+- If path is even length, there can only be digits with even counts
+
+Problem: https://leetcode.com/problems/lucky-numbers-in-a-matrix
+- Can be proven that there can be max one lucky number
+- Out of all row mins, the max row min is the only one that has a change to be lucky because the other vals in its row (which have to be greater than it), occur in the same columns as the other rows mins, and are going to be greater than it, preventing smaller row mins from having a chance to be lucky
+- O(1) space solution involves just tracking max row min and checking all col mins to see if they are equal
+
+Problem: https://leetcode.com/problems/validate-binary-search-tree/
+- In-order traversal for BST returns nodes in ascending order; track previous node and ensure current one that is being seen is greater than it; if not, tree is not valid

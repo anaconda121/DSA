@@ -71,4 +71,23 @@ class ArrayAlgorithms {
         return false;
     }
 
+    public List<Integer> insertSortedOrder(List<Integer> data, int num) {
+        if (data.size() == 0) { data.add(num); return data; }
+        if (num < data.get(0)) {data.add(0, num); return data; }
+
+        int l = 0;
+        int r = data.size() - 1;
+        while (l <= r) {
+            int m = l + (r - l) / 2;
+            if (data.get(m) <= num) {
+                if (m == data.size() - 1 || data.get(m + 1) >= num) {
+                    data.add(m+1, num);
+                    break;
+                } else { l = m + 1; }
+            } else if (data.get(m) > num) { r = m - 1; }
+        }
+
+        return data;
+    }
+
 }

@@ -80,3 +80,71 @@ Problem: https://leetcode.com/problems/lucky-numbers-in-a-matrix
 
 Problem: https://leetcode.com/problems/validate-binary-search-tree/
 - In-order traversal for BST returns nodes in ascending order; track previous node and ensure current one that is being seen is greater than it; if not, tree is not valid
+
+Problem: https://leetcode.com/problems/convert-bst-to-greater-tree/
+- Reverse in order traversal - in order traversal will give all sorted from least to greatest, want to start with greatest node and update its sum first, maintain a counter for the total values added 
+	- Start with right subtree since right values will be greatest
+
+Problem: https://leetcode.com/problems/maximum-frequency-stack/
+- Have a map of stacks, where key is count, and value is all numbers with that count
+- All have a map to keep track of individual counts
+- Whenever you pop, maxCount decrements by 1 (if there are no other elements with that count), and you delete the top element from the stack associated with maxCount
+
+Problem: https://leetcode.com/problems/find-all-duplicates-in-an-array/
+- Make solution O(1) space by using the array given as input
+- Create mapping where since numbers are from 1-n, have number i map to index i - 1
+- When you encounter a number, multiply number at `arr[i - 1]` by -1 as a sign that it has been visited (always take `abs(arr[i])`); if number is negative when you are trying to flip it again, add it to your resulting list
+
+Problem: https://leetcode.com/problems/my-calendar-i/
+- Maintain sorted list and do binary search to find position where a new interval can be inserted
+- Then check with start value if it can be inserted
+
+Problem: https://leetcode.com/problems/reorder-list/description/
+- Reverse pointers in second half of list so that you can maintain a start and end pointer (and end can decrement after each iteration)
+- Use fast and slow algorithm to find middle point in list
+- Insert from the end pointer into start.next
+
+Problem: https://leetcode.com/problems/word-search-ii/
+- Use a trie and insert all words in the list
+- Then go through the board and start doing floodfill
+	- If board character is one of the children of the curr TrieNode you are at, traverse in all four directions, with TrieNode now set to `curr.children`
+	- Can also have TrieNode maintain an isWord state, where if you reach a node where `node.isWord = true` then you can add it to the result
+
+Problem: https://leetcode.com/problems/minimum-cost-to-convert-string-i/
+- Construct directed graph `original[i] -> changed[i]` with `cost[i]`
+- Run dijkstra 26 * 26 times (worst case) to find shortest path from each character in source to all other possible characters it can reach
+- Then go through all characters of target to see whether cost exists from `source[i] -> target[i]`; path does not exist then return -1
+
+Problem: https://leetcode.com/problems/palindromic-substrings/
+- Go through each character and see how many even and odd palindromes can be formed with that character at the center
+
+Problem: https://leetcode.com/problems/implement-queue-using-stacks/
+- Have one stack that you always push onto
+- When it is time to pop, if second stack is empty, transfer elements to second stack (notice how the order will get reversed, meaning the value we want to return will be `s2.pop()`)
+	- Then for all the following pop operations until s2 is empty again, pop will be O(1)
+	- This gives us an amortized O(1) solution for pop instead of O(n)
+
+Problem: https://leetcode.com/problems/maximum-swap/description/
+- Create a bucket array that stores the latest position of each digit 1-10
+- Iterate through the digits and for each digit, check if a larger digit exists later in the array using the bucket array.
+- If a larger digit is found, swap the current digit with the larger digit, convert the character array back to an integer, and return the result.
+- If no beneficial swap is found, return the original number.
+
+Problem: https://leetcode.com/problems/minimum-number-of-vertices-to-reach-all-nodes/description/
+- Return number of nodes with indegree = 0
+
+Problem: https://leetcode.com/problems/splitting-a-string-into-descending-consecutive-values/
+- Standard backtracking problem, split at each possible point and only do recursive call if split ensures descending order with difference one condition
+- Can use `BigInteger` java class to convert strings to comparable numbers
+	- `BigInteger.valueOf(int i)`, `x.add(BigInteger.ONE)` etc are some helpful methods for this
+
+Problem: https://leetcode.com/problems/shortest-path-in-binary-matrix/
+- Looks like traditional floodfill, however, 8-directional floodfill will be $8^{nm}$ time complexity, which will definitely not work
+- Instead, we can do bfs on the matrix - which has the property that when we reach the desired end point, we will know we have the optimal solution
+	- Each queue element has x, y, and current distance - for all valid points 8-directionally, they are added to queue and marked as visited
+
+Problem: https://leetcode.com/problems/prefix-and-suffix-search/
+- Can use a trie and search for the prefix (and if it exists), add all word with the prefix to a set
+	- Iterate over the set and see if any of the words ends in the desired suffix
+- Another way is to add all combinations of prefix and suffix to a hashmap with the index number associated with the word
+	- Then query the map for the prefix/suffix combination and return max weight or -1 if the combination is not in the map

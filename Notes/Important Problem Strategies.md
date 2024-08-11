@@ -148,3 +148,36 @@ Problem: https://leetcode.com/problems/prefix-and-suffix-search/
 	- Iterate over the set and see if any of the words ends in the desired suffix
 - Another way is to add all combinations of prefix and suffix to a hashmap with the index number associated with the word
 	- Then query the map for the prefix/suffix combination and return max weight or -1 if the combination is not in the map
+
+Problem: https://leetcode.com/problems/count-subarrays-with-score-less-than-k/
+- Have a right pointer that always increments one over
+- While score of the subarray is greater than or equal to k, increment left - `ans += r - l + 1`
+	- Let's say a valid subarrays is `[1,4,3]`. This implies `[1,4], [4,3]` are also work - hence 3 subarrays
+
+Problem: https://leetcode.com/problems/minimum-deletions-to-make-string-balanced/
+- Problem is asking what is minimum number of deletions needed to make string have all 'a' characters come before all 'b' characters
+- Use prefix sum to get counts of 'b' and 'a'
+- At each point in the string, `number_deletions = number of b behind i + number of a ahead of and including i` - can use prefix sums for this
+	- Make sure to account for cases like resulting string only have a's or b's - check whether deleting all of one character is optimal as well
+
+Problem: https://leetcode.com/problems/word-ladder/description/
+- To effectively generate adjacency list, instead of doing a nested loop through all possible pairs of words and comparing ($n^2m$), you can loop through each character of each word and replace it with a-z, and see if it becomes a word in `wordList` ($nm^2$)
+	- $n >> m$ so this is way more efficient
+- Then do BFS on this adjacency list to find the shortest path
+
+Problem: https://leetcode.com/problems/subarray-sums-divisible-by-k/
+- Fact that we are counting subarrays means we can optimize beyond $n^2$
+- To account for negative numbers: do `if mod < 0: mod += k`
+
+Problem: https://leetcode.com/problems/maximum-product-subarray/description/
+- At each point, keep track of the smallest and largest subarray products (effectively the 2 max magnitude products)
+- `maxProduct = max(n * maxProduct, n * minProduct, n)`; `minProduct = min(n * maxProduct, n * minProduct, n)`
+	- Want the min and max because if the number you're on now is negative, the max could become the min product multiplied with that number
+
+Problem: https://leetcode.com/problems/finding-mk-average/description/
+- Three TreeMaps to keep track of k smallest, k largest, and `m - 2k` middle elements and their counts
+- Have a queue to keep track of latest m elements as well, and when stream size is greater > k, you have O(1) removal from any of the tree maps
+- To ensure the sizes are correct, follow a balancing scheme:
+	- If small size > k, move largest element from small (accessible in O(1) via `lastKey()` method) to middle
+	- If middle size > m - 2k, move largest element from middle to large
+- Also maintain a sum tracker of the elements currently in the middle for O(1) calculation of MKAverage

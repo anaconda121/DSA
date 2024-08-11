@@ -35,14 +35,14 @@ public class GraphAlgorithms {
 
         Queue<int[]> q = new LinkedList<>();
         q.add(new int[]{s[0], s[1], 0}); // (r, c, distance)
-        visited[s[0]][s[0]] = true;
+        visited[s[0]][s[1]] = true;
         while (!q.isEmpty()) {
             int[] curr = q.poll();
             int r = curr[0];
             int c = curr[1];
             int d = curr[2];
 
-            if (r == t[0] && c == t[0]) { return  d + 1; }
+            if (r == t[0] && c == t[0]) { return d + 1; }
 
             for (int i = 0; i < xDir.length; i++) {
                 int newRow = r + xDir[i];
@@ -59,7 +59,7 @@ public class GraphAlgorithms {
         return -1; // path does not exist
     }
 
-    void dijkstra(int s, Map<Integer, ArrayList<WeightedGraphNode>> adj) {
+    void dijkstra(int s, HashMap<Integer, ArrayList<WeightedGraphNode>> adj) {
         int[] distance = new int[adj.keySet().size()];
         Arrays.fill(distance , Integer.MAX_VALUE);
         distance[s] = 0;
@@ -81,5 +81,38 @@ public class GraphAlgorithms {
                 }
             }
         }
+    }
+
+    void dfsTopologicalSort(int n, boolean[] isCycle, boolean[] visited, boolean[] path, HashMap<Integer, ArrayList<Integer>> adj, ArrayList<Integer> res) {
+        if (visited[n]) return;
+        if (path[n]) {
+            isCycle[0] = true;
+            return;
+        }
+
+        visited[n] = true;
+        path[n] = true;
+        for (int neighbor : adj.get(n)) {
+            dfsTopologicalSort(neighbor, isCycle, visited, path, adj, res);
+        }
+        path[n] = false;
+        res.add(n);
+    }
+
+    ArrayList<Integer> topologicalSort(HashMap<Integer, ArrayList<Integer>> adj, boolean[] visited) {
+        boolean[] isCycle = new boolean[1];
+        ArrayList<Integer> res = new ArrayList<>();
+        for (int i = 0; i < adj.size(); i++) {
+            if (!visited[i]) {
+                dfsTopologicalSort(i, isCycle, new boolean[adj.size()], new boolean[adj.size()], adj, res);
+            }
+        }
+
+        if (isCycle[0]) {
+            return (ArrayList) Collections.emptyList();
+        }
+
+        Collections.reverse(res);
+        return res;
     }
 }
